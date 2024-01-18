@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useRef, useState } from 'react'
+import React, { useContext, useRef, useState } from 'react'
 import './Navbar.css'
 
 import logo from '../Assets/logo.png'
@@ -13,13 +13,18 @@ const Navbar = () => {
     const {getTotalCartItems} = useContext(ShopContext);
     const menuRef = useRef();
 
+    const dropdown_toggle = (e) =>{
+      menuRef.current.classList.toggle('nav-menu-visible');
+      e.target.classList.toggle('open');
+    }
+
   return (
     <div className='navbar'>
       <div className="nav-logo">
         <img src={logo} alt="" />
         <p>SHOPPER</p>
       </div>
-      <img src={nav_dropdown} alt="" />
+      <img className='nav-dropdown' onClick={dropdown_toggle} src={nav_dropdown} alt="" />
       <ul ref={menuRef} className="nav-menu">
         <li onClick={()=>{setMenu("shop")}}><Link style={{textDecoration: 'none'}} to='/'>Shop</Link>{menu==="shop"?<hr/>:<></>}</li>
         <li onClick={()=>{setMenu("mens")}}><Link style={{textDecoration: 'none'}} to='/mens'>Men</Link>{menu==="mens"?<hr/>:<></>}</li>
