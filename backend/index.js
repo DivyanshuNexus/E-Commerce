@@ -87,6 +87,9 @@ app.post('/addproduct',async (req,res)=>{
         let last_product = last_product_array[0];
         id = last_product.id+1;
     }
+    else{
+        id=1;
+    }
     const product = new  Product({
         id:id,
         id:req.body.id,
