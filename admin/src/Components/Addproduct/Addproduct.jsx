@@ -20,8 +20,27 @@ const Addproduct = () => {
     setProductDetails({...productDetails,[e.target.name]:e.target.value})
   }
 
-  const Add_Product = async () => {
+  const Add_Product = async ()=>{
     console.log(productDetails);
+    let responseData;
+    let product = productDetails;
+
+    let formData = new FormData();
+    formData.append('product',image);
+
+    await fetch('http://localhost:4000/upload',{
+      method:'POST',
+      headers:{
+        Accept:'application/json',
+      },
+      body:formData,
+    }).then((resp) => resp.json()).then((data)=> {responseData=data})
+
+    if(responseData.success)
+    {
+      product.image = responseData.image_url;
+      console.log(product);
+    }
   }
 
   return (
@@ -33,11 +52,11 @@ const Addproduct = () => {
       <div className="addproduct-price">
         <div className="addproduct-itemfield">
           <p>Price</p>
-          <input value={productDetails.old_price} onChange={changeHandler} type="text" name='old-price' placeholder='Type here' />
+          <input value={productDetails.old_price} onChange={changeHandler} type="text" name='old_price' placeholder='Type here' />
         </div>
         <div className="addproduct-itemfield">
           <p>Offer Price</p>
-          <input value={productDetails.new_price} onChange={changeHandler} type="text" name="new-price" placeholder='Type here' />
+          <input value={productDetails.new_price} onChange={changeHandler} type="text" name="new_price" placeholder='Type here' />
         </div>
       </div>
       <div className="addproduct-itemfield">
