@@ -40,6 +40,16 @@ const Addproduct = () => {
     {
       product.image = responseData.image_url;
       console.log(product);
+      await fetch('http://localhost:4000/addproduct',{
+        method:'POST',
+        headers:{
+          Accept:'application/json',
+          'Content-Type': 'application/json',
+        },
+        body:JSON.stringify(product),
+      }).then((res)=>res.json()).then((data)=>{
+          data.success?alert("Product Added"):alert("Failed")
+      })
     }
   }
 
@@ -69,7 +79,7 @@ const Addproduct = () => {
       </div>
       <div className="addproduct-itemfield">
         <label htmlFor="file-input">
-          <img src={image?URL.createObjectURL(image):upload_area} className='addproduct-thumnail-img' alt="" />
+          <img src={image?URL.createObjectURL(image):upload_area} className='addproduct-thumnail-img' alt=""/>
         </label>
         <input onChange={imageHnadler} type="file" name='image' id='file-input' hidden />
       </div>
