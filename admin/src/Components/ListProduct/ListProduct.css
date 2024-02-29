@@ -45,7 +45,7 @@
     margin: auto;
 }
 
-/* @media(max-width: 800px) {
+@media(max-width: 800px) {
     .list-product {
         box-sizing: border-box;
         width: 95%;
@@ -63,4 +63,4 @@
     .listproduct-product-icon {
         height: 60px;
     }
-} */
+}
