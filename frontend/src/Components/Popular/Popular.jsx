@@ -12,11 +12,7 @@ const Popular = () => {
     .then((data)=>setPopularProducts(data));
   },[])
 
-  //creating endpoint for saving data
-  app.post('/addtocart',async (req,res)=>{
-
-  })
-
+  
   return (
     <div className="popular">
       <h1>POPULAR IN WOMEN</h1>
