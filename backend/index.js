@@ -187,7 +187,7 @@ app.post('/login',async (req,res)=>{
                     id:user.id
                 }
             }
-            const token = jwt.sign(data,'secr_ecom')
+            const token = jwt.sign(data,'secret_ecom')
             res.json({success:true,token});
         }
         else{
@@ -241,6 +241,22 @@ app.post('/addtocart', fetchUser, async (req, res) => {
     res.send("Added")
 })
 
+//creating endpoint to remove product for cartData
+app.post('/removefromcart',fetchUser,async (req,res)=>{
+    console.log("remove",req.body.itemId);
+    let userData = await Users.findOne({ _id: req.user.id });
+    if(userData.cartData[req.body.itemId]>0)
+    userData.cartData[req.body.itemId] -= 1;
+    await Users.findOneAndUpdate({ _id: req.user.id }, { cartData: userData.cartData });
+    res.send("Removed")
+})
+
+//creating endpoint to get cartData
+app.post('/getcart',fetchUser,async (req,res)=>{
+    console.log("GetCart");
+    let userData = await Users.findOne({_id:req.user.id});
+    res.json(userData.cartData);
+})
 
 app.listen(port,(error)=>{
     if (!error) {
